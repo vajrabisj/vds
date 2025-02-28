@@ -169,7 +169,7 @@ fn call_api(base_url string, api_key string, messages []Message /*mut stats APIS
     }
 	    
 println('响应状态码: ${resp.status_code}')
-println('响应头: ${resp.headers}')
+println('响应头: ${resp.header}')
 println('响应体: ${resp.body}')
 	    
     // Validate response starts with HTTP headers
