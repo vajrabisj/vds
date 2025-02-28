@@ -165,31 +165,23 @@ fn call_api(base_url string, api_key string, messages []Message /*mut stats APIS
     // 发送请求 - 这里使用 30 秒作为默认超时，V 会处理
 	println('fetching...')
     mut resp := http.fetch(config) or {
-        println('HTTP请求失败: ${err}')
         return err
     }
     
     // 获取并处理响应体
-    // 检查响应体是否以HTTP开头
 	println('getting response body...')
     response_body := resp.body
-    if !response_body.starts_with('HTTP/') {
-        println('无效的HTTP响应：响应体不以HTTP开头')
-        return error('无效的HTTP响应')
-    }
-
-    // 检查HTTP状态码
-    println('checking status...')
+    
+    // 检查HTTP状态
+	println('checking status...')
     if resp.status_code != 200 {
-        println('API返回错误状态码: ${resp.status_code}, 响应: ${response_body}')
-        return error('API返回错误状态码')
+        return error('API返回错误状态码: ${resp.status_code}, 响应: ${response_body}')
     }
     
     // 解析响应
 	println('decoding response...')
     response := json.decode(ChatResponse, response_body) or {
-        println('无法解析JSON响应: ${err}, 原始响应: ${response_body}')
-        return error('无法解析JSON响应')
+        return error('无法解析JSON响应: ${err}, 原始响应: ${response_body}')
     }
     
     // 验证响应
