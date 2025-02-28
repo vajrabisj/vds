@@ -40,7 +40,7 @@ fn main() {
     println('欢迎使用DeepSeek R1 Distill Llama 70B交互程序！输入"退出"以结束对话。')
     
     base_url := 'https://agent-f21a76a2830b44f6220f-tfj36.ondigitalocean.app/api/v1/chat/completions'
-    api_key := 'pq4GsilLVPCVVKY5sHciDElcvsLXiVSO'
+    api_key := ''
     
     // 初始化对话历史
     mut messages := []Message{}
