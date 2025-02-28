@@ -167,7 +167,11 @@ fn call_api(base_url string, api_key string, messages []Message /*mut stats APIS
     mut resp := http.fetch(config) or {
         return error('HTTP请求失败: ${err}')
     }
-
+	    
+println('响应状态码: ${resp.status_code}')
+println('响应头: ${resp.headers}')
+println('响应体: ${resp.body}')
+	    
     // Validate response starts with HTTP headers
     	println('checking header of http...')
     if !resp.body.starts_with('HTTP/') {
