@@ -165,9 +165,15 @@ fn call_api(base_url string, api_key string, messages []Message /*mut stats APIS
     // 发送请求 - 这里使用 30 秒作为默认超时，V 会处理
 	println('fetching...')
     mut resp := http.fetch(config) or {
-        return err
+        return error('HTTP请求失败: ${err}')
     }
-    
+
+    // Validate response starts with HTTP headers
+    	println('checking header of http...')
+    if !resp.body.starts_with('HTTP/') {
+        return error('响应不以HTTP头开始: ${resp.body}')
+    }
+	    
     // 获取并处理响应体
 	println('getting response body...')
     response_body := resp.body
